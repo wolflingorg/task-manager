@@ -3,7 +3,7 @@ package taskmanager
 // Handler
 // You must create function like this in your program
 // Your task will be transfered to this function
-type DoHandler func(work WorkRequest)
+type DoHandler func(work WorkRequest, worker_id int)
 
 // Worker structure
 type Worker struct {
@@ -23,7 +23,7 @@ func (w Worker) Start() {
 
 			select {
 			case work := <-w.Work:
-				w.Do(work)
+				w.Do(work, w.ID)
 
 			case <-w.QuitChan:
 				return
