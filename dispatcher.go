@@ -1,15 +1,19 @@
 package taskmanager
 
 // Queue of free workers
-var WorkerQueue chan chan WorkRequest
+var (
+	WorkerQueue chan chan WorkRequest
+	WorkQueue   chan WorkRequest
+)
 
 // Create workers and delegate work for them
 // TODO add check the number of working processes
-func StartDispatcher(nworkers int, WorkQueue chan WorkRequest, Do DoHandler) {
+func StartDispatcher(nworkers int, handler WorkHandler) {
 	WorkerQueue = make(chan chan WorkRequest, nworkers)
+	WorkQueue = make(chan WorkRequest, nworkers)
 
 	for i := 0; i < nworkers; i++ {
-		worker := NewWorker(i+1, WorkerQueue, Do)
+		worker := NewWorker(i+1, WorkerQueue, handler)
 		worker.Start()
 	}
 
