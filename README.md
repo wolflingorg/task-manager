@@ -47,3 +47,6 @@ func main() {
 	}
 }
 ```
+
+Реальный пример можно посмотреть на проекте https://github.com/wolflingorg/rss-grabber
+Здесь Task Manager используется для "обновления RSS каналов"
