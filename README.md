@@ -28,7 +28,11 @@ func Handler(work tm.WorkRequest, worker_id int) {
 
 func main() {
 	// запускаем воркеров
-	tm.StartDispatcher(10, Handler)
+	tm.StartDispatcher(tm.TaskManager{
+		NumWorkers: 10, // колличество воркеров
+		NumTasks:   10, // буфер очереди
+		Handler:    Handler, // функция обработчик
+	})
 
 	task_id := 0
 
